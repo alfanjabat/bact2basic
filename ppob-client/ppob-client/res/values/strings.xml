@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello ppob-client!</string>
+    <string name="app_name">PPOB Client</string>
+    <string name="serverAdress">IP Server</string>
+    <string name="serverPort">Port</string>
+    <string name="lbl_go">Go</string>
+    <string name="lbl_clear">Clear</string>
+    <string name="divider" />
+    <string name="product_code">Code</string>
+    <string name="product_name">Name</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_request_product_list">Product List</string>
+
+</resources>
