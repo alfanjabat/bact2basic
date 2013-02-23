@@ -4,13 +4,13 @@
  */
 package com.ppob.server.dao;
 
-import com.ppob.server.domain.Product;
+import com.ppob.server.domain.Payment;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
  * @author opaw
  */
-public interface ProductDao extends PagingAndSortingRepository<Product, String> {
-    Product findByName(String name);
+public interface PaymentDao extends PagingAndSortingRepository<Payment, String> {
+    
 }

@@ -473,5 +473,17 @@ angular.module('belajar.controller',['belajar.service'])
         $scope.isClean = function(){
             return angular.equals($scope.original, $scope.currentProduct);
         }
+        $scope.isCodeAvailable = function(value){
+            if($scope.currentProduct != null && $scope.currentProduct.id != null){
+                return true;
+            }
+            for(var i = 0; i < $scope.products.length; i++){
+                var c = $scope.products[i];
+                if(c.code === value){
+                    return false;
+                }
+            }
+            return true;
+        }
     }])
 ;

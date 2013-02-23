@@ -4,8 +4,9 @@
  */
 package com.ppob.server.service.impl;
 
-import com.ppob.server.domain.Payment;
 import static org.junit.Assert.*;
+import com.ppob.server.domain.Product;
+import com.ppob.server.domain.User;
 import com.ppob.server.service.TransactionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,26 +22,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:com/ppob/server/**/applicationContext.xml")
-public class PaymentServiceTestIT {
-    
-    @Autowired private TransactionService paymentService;
+public class ProductServiceTestIT {
+    @Autowired TransactionService productService;
     
     @Test
-    public void testFindAll(){
-        Page<Payment> result = paymentService.findAllPayment(new PageRequest(0, 10));
-        assertEquals(new Integer(1), new Integer(result.getNumberOfElements()));
+    public void testFindAll() {
+        Page<Product> result = productService.findAllProduct(new PageRequest(0, productService.countAllProdutct().intValue()));
+        assertTrue(result.getTotalElements() > 0);
     }
     
     @Test
     public void testFindById(){
-        Payment p = paymentService.findPaymentById("1");
+        Product p = productService.findProductById("1");
         assertNotNull(p);
-        assertEquals("2013-02-23", p.getTime());
-        assertEquals("1a", p.getLocket());
-        assertEquals("1", p.getBill().getId());
+        assertEquals("1S", p.getCode());
+        assertEquals("Speedy", p.getName());
     
-        assertNull(paymentService.findPaymentById(null));
-        assertNull(paymentService.findPaymentById(""));
+        assertNull(productService.findProductById(null));
+        assertNull(productService.findProductById(""));
     }
     
+    @Test
+    public void testFindByName() {
+        assertNotNull(productService.findProductByName("Speedy"));
+        assertNull(productService.findProductByName("PLN"));
+    }
 }

@@ -98,6 +98,37 @@
                 <constraints nullable="false" />
             </column>
         </createTable>
+        <createTable tableName="t_bill">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="periode" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="value" type="decimal">
+                <constraints nullable="false" />
+            </column>
+            <column name="charge" type="decimal">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_product" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createTable tableName="t_payment">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="time" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="locket" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="id_bill" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
         <modifySql dbms="mysql">
             <append value=" engine innodb" />
         </modifySql>
@@ -160,6 +191,25 @@
             referencedTableName="c_security_role"
             referencedColumnNames="id"
         />
+        <addUniqueConstraint
+            constraintName="unique_product_code"
+            columnNames="code"
+            tableName="m_product"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_bill_product"
+            baseColumnNames="id_product"
+            baseTableName="t_bill"
+            referencedTableName="m_product"
+            referencedColumnNames="id"
+        />
+        <addForeignKeyConstraint
+            constraintName="fk_payment_bill"
+            baseColumnNames="id_bill"
+            baseTableName="t_payment"
+            referencedTableName="t_bill"
+            referencedColumnNames="id"
+        />
     </changeSet>
     <changeSet id="3" author="endy">
         <loadData tableName="c_security_menu" file="com/ppob/server/db/data/menu.csv">
@@ -201,6 +251,19 @@
             <column header="id" type="STRING" />
             <column header="code" type="STRING" />
             <column header="name" type="STRING" />
+        </loadData>
+        <loadData tableName="t_bill" file="com/ppob/server/db/data/bill.csv">
+            <column header="id" type="STRING" />
+            <column header="periode" type="DATE" />
+            <column header="value" type="NUMERIC" />
+            <column header="charge" type="NUMERIC" />
+            <column header="id_product" type="STRING" />
+        </loadData>
+        <loadData tableName="t_payment" file="com/ppob/server/db/data/payment.csv">
+            <column header="id" type="STRING" />
+            <column header="time" type="DATE" />
+            <column header="locket" type="STRING" />
+            <column header="id_bill" type="STRING" />
         </loadData>
     </changeSet>
 </databaseChangeLog>
