@@ -11,6 +11,8 @@ angular.module('belajar', ['ui', 'belajar.controller'])
             .when('/system/menu', {templateUrl: 'pages/system/menu.html', controller: 'SystemMenuController'})
             .when('/master/product', {templateUrl: 'pages/master/product.html', controller: 'ProductController'})
             .when('/about', {templateUrl: 'pages/about.html', controller: 'AboutController'})
+            .when('/transaction/bill', {templateUrl: 'pages/table/bill.html', controller: 'BillController'})
+            .when('/transaction/payment', {templateUrl: 'pages/table/payment.html', controller: 'PaymentController'})
             .otherwise({templateUrl: 'pages/404.html'});
     }])
     .config(['$httpProvider', function($httpProvider){

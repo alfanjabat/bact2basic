@@ -103,6 +103,7 @@ angular.module('belajar.service', ['ngResource'])
             
         return service;
     }])
+
     .factory('UserService', ['$resource', '$http', function($resource, $http){
         var service = {
             user: $resource('user/:id'),
@@ -140,6 +141,50 @@ angular.module('belajar.service', ['ngResource'])
             remove: function(obj){
                 if(obj.id != null){
                     return $http.delete('master/product/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+    .factory('BillService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            bill: $resource('transaction/bill/:id'),
+            get: function(param, callback){ return this.bill.get(param, callback) }, 
+            query: function(){ return this.bill.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('transaction/bill', obj);
+                } else {
+                    return $http.put('transaction/bill/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('transaction/bill/'+obj.id);
+                }
+            }
+        };
+            
+        return service;
+    }])
+
+    .factory('PaymentService', ['$resource', '$http', function($resource, $http){
+        var service = {
+            payment: $resource('transaction/payment/:id'),
+            get: function(param, callback){ return this.payment.get(param, callback) }, 
+            query: function(){ return this.payment.query() },
+            save: function(obj){
+                if(obj.id == null){
+                    return $http.post('transaction/payment', obj);
+                } else {
+                    return $http.put('transaction/payment/'+obj.id, obj);
+                }
+            }, 
+            remove: function(obj){
+                if(obj.id != null){
+                    return $http.delete('transaction/payment/'+obj.id);
                 }
             }
         };

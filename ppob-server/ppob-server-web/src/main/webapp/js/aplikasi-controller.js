@@ -389,6 +389,7 @@ angular.module('belajar.controller',['belajar.service'])
             }
         }
     }])
+
     .controller('UserController', ['$scope', 'UserService', 'RoleService', function($scope, UserService, RoleService){
         $scope.users = UserService.query();
         $scope.roles = RoleService.query();
@@ -484,6 +485,76 @@ angular.module('belajar.controller',['belajar.service'])
                 }
             }
             return true;
+        }
+    }])
+
+    .controller('BillController', ['$scope', 'BillService', 'ProductService', function($scope, BillService, ProductService){
+        $scope.bills    = BillService.query();
+        $scope.products = ProductService.query();
+        $scope.edit = function(x){
+            if(x.id == null){
+                return; 
+            }
+            $scope.currentBill = BillService.get({id: x.id}, function(data){
+                $scope.original = angular.copy(data);
+            });
+        };
+        $scope.baru = function(){
+            $scope.currentBill = null;
+            $scope.original = null;
+        }
+        $scope.simpan = function(){
+            BillService.save($scope.currentBill)
+            .success(function(){
+                $scope.bills = BillService.query();
+                $scope.baru();
+            });
+        }
+        $scope.remove = function(x){
+            if(x.id == null){
+                return;
+            }
+            BillService.remove(x).success(function(){
+                $scope.bills = BillService.query();
+            });
+        }
+        $scope.isClean = function(){
+            return angular.equals($scope.original, $scope.currentBill);
+        }
+    }])
+
+    .controller('PaymentController', ['$scope', 'PaymentService', 'BillService', function($scope, PaymentService, BillService){
+        $scope.payments    = PaymentService.query();
+        $scope.bills       = BillService.query();
+        $scope.edit = function(x){
+            if(x.id == null){
+                return; 
+            }
+            $scope.currentPayment = PaymentService.get({id: x.id}, function(data){
+                $scope.original = angular.copy(data);
+            });
+        };
+        $scope.baru = function(){
+            $scope.currentPayment = null;
+            $scope.original = null;
+        }
+        $scope.simpan = function(){
+            PaymentService.save($scope.currentPayment)
+            .success(function(){
+                $scope.payments = PaymentService.query();
+                $scope.baru();
+            });
+        }
+        $scope.remove = function(x){
+            if(x.id == null){
+                return;
+            }
+            PaymentService.remove(x).success(function(){
+                $scope.payments = PaymentService.query();
+            });
+        }
+        $scope.isClean = function(){
+            return angular.equals($scope.original, $scope.currentPayment);
         }
     }])
 ;

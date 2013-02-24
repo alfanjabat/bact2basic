@@ -45,6 +45,6 @@ public class ProductServiceTestIT {
     @Test
     public void testFindByName() {
         assertNotNull(productService.findProductByName("Speedy"));
-        assertNull(productService.findProductByName("PLN"));
+        assertNull(productService.findProductByName("NULL"));
     }
 }
